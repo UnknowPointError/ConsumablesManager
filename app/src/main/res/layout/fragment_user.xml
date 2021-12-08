@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".view.fragment.UserFragment">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/userAppBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:background="#EAE9E9">
+
+        <androidx.constraintlayout.motion.widget.MotionLayout
+            android:id="@+id/userMotionLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:minHeight="60dp"
+            app:layoutDescription="@xml/fragment_user_xml_collapsingtoolbarlayout_scene"
+            app:layout_scrollFlags="scroll|enterAlways|snap|exitUntilCollapsed"
+            app:motionDebug="SHOW_PATH">
+
+            <ImageView
+                android:id="@+id/userImageView"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:contentDescription="@string/icon"
+                app:srcCompat="@drawable/user_black"
+                tools:layout_editor_absoluteX="156dp"
+                tools:layout_editor_absoluteY="93dp" />
+
+            <TextView
+                android:id="@+id/userTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#000"
+                android:textSize="20sp" />
+
+            <ImageButton
+                android:id="@+id/userExitBtn"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="#EAE9E9"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:contentDescription="@string/icon"
+                android:scaleType="fitXY"
+                android:src="@drawable/exit" />
+
+        </androidx.constraintlayout.motion.widget.MotionLayout>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/userScrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#EAE9E9"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        tools:ignore="SpeakableTextPresentCheck">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="5dp"
+            app:cardCornerRadius="10dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="50dp"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:text="@string/user_haocaishenqing" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginEnd="15dp"
+                    android:background="#9F9D9D" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="50dp"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:text="@string/user_haocaijieyong" />
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -1,0 +1,29 @@
+<resources>
+    <string name="app_name">ConsumablesManagement</string>
+    <string name="login_username">请输入账号6~16位</string>
+    <string name="login_password">请输入密码6~16位</string>
+    <string name="login_version">Barry的测试版本</string>
+    <string name="login_imageButton">下拉框删除账号按钮</string>
+    <string name="login_loginButton">登录账号</string>
+    <string name="login_register">注册账号</string>
+    <string name="login_rememberUser">保存账号</string>
+    <string name="login_rememberPwd">保存密码</string>
+    <string name="login_AutoLogin">自动登录</string>
+    <string name="login_ForgetUserName">找回账号</string>
+    <string name="login_ForgetName">找回密码</string>
+    <string name="register_user">请输入账号</string>
+    <string name="register_pwd">请输入密码</string>
+    <string name="register_pwdCheck">请再次确认密码</string>
+    <string name="register_uid">请输入uid</string>
+    <string name="ProgressDialog">加载中…</string>
+    <string name="icon">icon</string>
+    <string name="user_haocaishenqing">耗材申请记录</string>
+    <string name="user_haocaijieyong">耗材借用记录</string>
+    <string name="apply_addCasName">请输入耗材名称</string>
+    <string name="apply_addCasCount">请输入耗材数量</string>
+    <string name="apply_addCasSubmit">添加耗材</string>
+    <string name="apply_addCasTips">点击空白处自动关闭当前界面</string>
+    <string name="apply_errorStyly">格式错误！</string>
+    <string name="apply_errorCsaNameNull">添加的耗材名称不能为空！</string>
+    <string name="apply_errorCsaCountNull">添加的耗材数量不能为空！</string>
+</resources>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Barry/B_study/Android/.gradle/caches/transforms-3/3fe82de99f7d8abea2a51ea33a9da973/transformed/jetified-SMSSDK-3.7.1/res/layout/smssdk_authorize_dialog.xml" value="0.264" />
+        <entry key="..\:/Barry/B_study/Android/.gradle/caches/transforms-3/a9c78951d41cb5590e392253a8c111d9/transformed/material-1.4.0/res/layout-sw600dp-v13/design_layout_snackbar.xml" value="0.19375" />
+        <entry key="..\:/Barry/B_study/Android/.gradle/caches/transforms-3/a9c78951d41cb5590e392253a8c111d9/transformed/material-1.4.0/res/layout/design_layout_snackbar.xml" value="0.25833333333333336" />
+        <entry key="..\:/Barry/B_study/Android/.gradle/caches/transforms-3/a9c78951d41cb5590e392253a8c111d9/transformed/material-1.4.0/res/layout/mtrl_layout_snackbar.xml" value="0.25833333333333336" />
+        <entry key="..\:/Barry/B_study/Android/Android_Project/ConsumablesManagement/app/src/main/res/drawable/ic_error.xml" value="0.2786458333333333" />
+        <entry key="..\:/Barry/B_study/Android/Android_Project/ConsumablesManagement/app/src/main/res/drawable/progressbar.xml" value="0.2732379979570991" />
+        <entry key="..\:/Barry/B_study/Android/Android_Project/ConsumablesManagement/app/src/main/res/drawable/progressbar_color.xml" value="0.2732379979570991" />
+        <entry key="..\:/Barry/B_study/Android/Android_Project/ConsumablesManagement/app/src/main/res/drawable/textview_line.xml" value="0.37407407407407406" />
+        <entry key="..\:/Barry/B_study/Android/Android_Project/ConsumablesManagement/app/src/main/res/layout-v23/login_activity.xml" value="0.2713541666666667" />
+        <entry key="..\:/Barry/B_study/Android/Android_Project/ConsumablesManagement/app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="..\:/Barry/B_study/Android/Android_Project/ConsumablesManagement/app/src/main/res/layout/activity_main2.xml" value="0.2418478260869565" />
+        <entry key="..\:/Barry/B_study/Android/Android_Project/ConsumablesManagement/app/src/main/res/layout/add_consumables.xml" value="0.390625" />
+        <entry key="..\:/Barry/B_study/Android/Android_Project/ConsumablesManagement/app/src/main/res/layout/asdasd.xml" value="0.3482789855072464" />
+        <entry key="..\:/Barry/B_study/Android/Android_Project/ConsumablesManagement/app/src/main/res/layout/consu_mables_fragment.xml" value="0.25833333333333336" />
+        <entry key="..\:/Barry/B_study/Android/Android_Project/ConsumablesManagement/app/src/main/res/layout/custom_toast.xml" value="0.4" />
+        <entry key="..\:/Barry/B_study/Android/Android_Project/ConsumablesManagement/app/src/main/res/layout/dialog.xml" value="0.4" />
+        <entry key="..\:/Barry/B_study/Android/Android_Project/ConsumablesManagement/app/src/main/res/layout/fragment_apply.xml" value="0.152" />
+        <entry key="..\:/Barry/B_study/Android/Android_Project/ConsumablesManagement/app/src/main/res/layout/fragment_consu_mables.xml" value="0.25833333333333336" />
+        <entry key="..\:/Barry/B_study/Android/Android_Project/ConsumablesManagement/app/src/main/res/layout/fragment_consumables.xml" value="0.25833333333333336" />
+        <entry key="..\:/Barry/B_study/Android/Android_Project/ConsumablesManagement/app/src/main/res/layout/fragment_user.xml" value="0.2" />
+        <entry key="..\:/Barry/B_study/Android/Android_Project/ConsumablesManagement/app/src/main/res/layout/home_activity.xml" value="0.25833333333333336" />
+        <entry key="..\:/Barry/B_study/Android/Android_Project/ConsumablesManagement/app/src/main/res/layout/login_activity.xml" value="0.264" />
+        <entry key="..\:/Barry/B_study/Android/Android_Project/ConsumablesManagement/app/src/main/res/layout/login_listview.xml" value="0.2713541666666667" />
+        <entry key="..\:/Barry/B_study/Android/Android_Project/ConsumablesManagement/app/src/main/res/layout/login_recyclerView.xml" value="0.2713541666666667" />
+        <entry key="..\:/Barry/B_study/Android/Android_Project/ConsumablesManagement/app/src/main/res/layout/login_recyclerview.xml" value="0.1" />
+        <entry key="..\:/Barry/B_study/Android/Android_Project/ConsumablesManagement/app/src/main/res/layout/login_recyclerview_item.xml" value="0.3727598566308244" />
+        <entry key="..\:/Barry/B_study/Android/Android_Project/ConsumablesManagement/app/src/main/res/layout/regeister_actiivty.xml" value="0.2713541666666667" />
+        <entry key="..\:/Barry/B_study/Android/Android_Project/ConsumablesManagement/app/src/main/res/layout/regeister_activty.xml" value="0.264" />
+        <entry key="..\:/Barry/B_study/Android/Android_Project/ConsumablesManagement/app/src/main/res/layout/register_activity.xml" value="0.264" />
+        <entry key="..\:/Barry/B_study/Android/Android_Project/ConsumablesManagement/app/src/main/res/xml/snake.xml" value="0.25833333333333336" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>
