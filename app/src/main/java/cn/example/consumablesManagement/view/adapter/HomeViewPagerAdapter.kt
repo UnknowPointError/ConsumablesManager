@@ -3,6 +3,7 @@ package cn.example.consumablesManagement.view.adapter
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
+import cn.example.consumablesManagement.util.Loading
 
 /*************************
  * @ProjectName: ConsumablesManagement
@@ -12,7 +13,7 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
  * TODO: HomeViewPagerAdapter
  **************************/
 class HomeViewPagerAdapter(
-    fragmentActivity: FragmentActivity,
+    val fragmentActivity: FragmentActivity,
     private val fragment: ArrayList<Fragment>
 ) :
     FragmentStateAdapter(fragmentActivity) {

@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="wrap_content"
@@ -35,7 +34,6 @@
                 android:maxLines="1" />
         </com.google.android.material.textfield.TextInputLayout>
 
-
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/applyCsaCountFiled"
             style="@style/Widget.Unscramble.TextInputLayout.OutlinedBox"
@@ -56,24 +54,61 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
-
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="5dp"
-            android:text="@string/apply_addCasTips"
             android:gravity="center"
+            android:text="@string/apply_addCasTips"
             android:textColor="#BCB6B6"
             android:textSize="11sp" />
 
-        <Button
-            android:id="@+id/applyAddSubmit"
-            android:layout_width="wrap_content"
+        <FrameLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="5dp"
-            android:text="@string/apply_addCasSubmit" />
+            android:layout_marginTop="5dp">
 
+            <ImageButton
+                android:id="@+id/applyFromAlbum"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="10dp"
+                android:background="@drawable/ripper_bg"
+                android:contentDescription="@string/icon"
+                android:src="@drawable/image" />
 
+            <Button
+                android:id="@+id/applyAddSubmit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/apply_addCasSubmit" />
+
+            <ImageButton
+                android:id="@+id/applyTakePicture"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end|center_vertical"
+                android:layout_marginEnd="10dp"
+                android:background="@drawable/ripper_bg"
+                android:contentDescription="@string/icon"
+                android:src="@drawable/takepicture" />
+        </FrameLayout>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="200dp">
+
+            <ImageView
+                android:id="@+id/applyImageView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:contentDescription="@string/icon"
+                android:scaleType="center" />
+        </ScrollView>
     </LinearLayout>
+
 </com.google.android.material.card.MaterialCardView>
+

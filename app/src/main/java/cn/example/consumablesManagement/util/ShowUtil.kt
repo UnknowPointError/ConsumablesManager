@@ -6,6 +6,7 @@ import android.graphics.Color
 import android.view.*
 import android.widget.TextView
 import android.widget.Toast
+import cn.example.consumablesManagement.App
 import cn.example.consumablesManagement.R
 import com.google.android.material.snackbar.Snackbar
 
@@ -14,29 +15,26 @@ import com.google.android.material.snackbar.Snackbar
  * @Dir_Path: app/src/main/java/cn/example/consumablesManagement/util
  * @Time: 2021 1:36 / 11月
  * @Author: BarryAllen
- * TODO: 显示showToast
+ * TODO: 显示showToast＆SnackBar
  **************************/
-object Toasts {
+object ShowUtil {
 
     private var toast: Toast? = null
     private var snackbar: Snackbar? = null
 
-    // @TODO: DataTime = 2021/11/19 1:39
-    // @TODO: 显示showToast
+    // [2021/11/19 1:39] @TODO: 显示showToast
     fun Context.showToast(text: String, displayTimeMode: Boolean = false) {
-        if (toast != null)
-            (toast ?: return).cancel()// 当toast为null时返回冒号后面的值，只有return则退出
+        toast?.cancel()
         toast = if (!displayTimeMode)
-            Toast.makeText(this, text, Toast.LENGTH_SHORT)
+            Toast.makeText(App.context, text, Toast.LENGTH_SHORT)
         else
-            Toast.makeText(this, text, Toast.LENGTH_LONG)
+            Toast.makeText(App.context, text, Toast.LENGTH_LONG)
         toast?.show()
     }
 
+    // [2021/12/9 16:08] @TODO: 显示SnackBar
     fun View.showSnackBar(message: String, duration: Int = Snackbar.LENGTH_SHORT) {
-        if (snackbar != null) {
-            (snackbar ?: return).dismiss()
-        }
+        snackbar?.dismiss()
         snackbar = Snackbar.make(this, message, duration)
         snackbar?.show()
     }

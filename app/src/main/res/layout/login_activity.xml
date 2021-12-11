@@ -229,8 +229,7 @@
                     android:layout_height="20dp"
                     android:layout_gravity="center_vertical"
                     android:layout_marginEnd="10dp"
-                    android:background="#fff"
-                    android:foreground="?android:attr/selectableItemBackground"
+                    android:background="@drawable/ripper_bg"
                     android:padding="0dp"
                     android:scaleType="fitXY"
                     android:visibility="invisible"
@@ -242,8 +241,7 @@
                     android:layout_height="25dp"
                     android:layout_gravity="center_vertical"
                     android:layout_marginEnd="10dp"
-                    android:background="#fff"
-                    android:foreground="?android:attr/selectableItemBackground"
+                    android:background="@drawable/ripper_bg"
                     android:padding="0dp"
                     android:scaleType="fitXY"
                     android:src="@drawable/caret_down" />
@@ -287,8 +285,7 @@
                     android:layout_height="20dp"
                     android:layout_gravity="center_vertical"
                     android:layout_marginEnd="10dp"
-                    android:background="#fff"
-                    android:foreground="?android:attr/selectableItemBackground"
+                    android:background="@drawable/ripper_bg"
                     android:padding="0dp"
                     android:scaleType="fitXY"
                     android:visibility="invisible"
@@ -304,7 +301,7 @@
                     android:padding="0dp"
                     android:scaleType="fitXY"
                     android:visibility="invisible"
-                    app:srcCompat="@drawable/eye_1" />
+                    app:srcCompat="@drawable/eye" />
 
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>

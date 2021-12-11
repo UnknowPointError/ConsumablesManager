@@ -2,20 +2,20 @@ package cn.example.consumablesManagement.util
 
 import Decoder.BASE64Decoder
 import Decoder.BASE64Encoder
-import cn.example.consumablesManagement.util.AES.decrypt
-import cn.example.consumablesManagement.util.AES.encrypt
-import kotlinx.coroutines.cancel
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
+import cn.example.consumablesManagement.logic.model.ConsumablesBody
+import cn.example.consumablesManagement.logic.model.ConsumablesData
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import java.io.IOException
 import java.lang.Exception
+import java.lang.reflect.Type
 import javax.crypto.Cipher
 import javax.crypto.KeyGenerator
 import javax.crypto.SecretKey
 import javax.crypto.spec.SecretKeySpec
+import kotlin.reflect.typeOf
 
-object AES {
+class AES {
     private val cipher = Cipher.getInstance("AES")
 
     //生成AES秘钥，然后Base64编码
@@ -61,7 +61,8 @@ object AES {
         return cipher.doFinal(source)
     }
 
-    fun String.encrypt(key: SecretKey) = byte2Base64(encryptAES(this.toByteArray(), key))
+    fun encrypt(content: String?, key: SecretKey) =
+        byte2Base64(encryptAES(content?.toByteArray(), key))
 
-    fun String.decrypt(key: SecretKey) = String(decryptAES(base642Byte(this), key))
+    fun decrypt(content: String?, key: SecretKey) = String(decryptAES(base642Byte(content), key))
 }

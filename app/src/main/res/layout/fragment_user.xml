@@ -41,8 +41,8 @@
                 android:id="@+id/userExitBtn"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:background="#EAE9E9"
-                android:foreground="?android:attr/selectableItemBackground"
+                android:backgroundTint="#EAE9E9"
+                android:background="@drawable/ripper_bg"
                 android:contentDescription="@string/icon"
                 android:scaleType="fitXY"
                 android:src="@drawable/exit" />

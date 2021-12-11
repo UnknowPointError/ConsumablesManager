@@ -1,6 +1,6 @@
 package cn.example.consumablesManagement.logic.network
 
-import cn.example.consumablesManagement.util.TRYCATCH
+import cn.example.consumablesManagement.util.TryCatchUtil
 import java.net.HttpURLConnection
 import java.net.URL
 import java.net.URLEncoder
@@ -21,11 +21,13 @@ class NetworkThread(
     private val uid: String = "",
     private val csaName: String = "",
     private val csaCount: String = "",
+    private val rowMinLimit : String = "",
     private val url: String
 ) : Callable<String> {
 
     override fun call(): String {
-        TRYCATCH.tryFunc({
+        var result: String = ""
+        TryCatchUtil.tryCatch({
             val connection = URL(url).openConnection() as HttpURLConnection
             // @formatter:off
             val data = "username=${URLEncoder.encode(userName, StandardCharsets.UTF_8.toString())
@@ -33,7 +35,7 @@ class NetworkThread(
             }&uid=${URLEncoder.encode(uid, StandardCharsets.UTF_8.toString())
             }&csaName=${URLEncoder.encode(csaName, StandardCharsets.UTF_8.toString())
             }&csaCount=${URLEncoder.encode(csaCount, StandardCharsets.UTF_8.toString())
-            }"
+            }&rowMinLimit=${URLEncoder.encode(rowMinLimit,StandardCharsets.UTF_8.toString())}"
             // @formatter:on
             connection.requestMethod = "POST"
             connection.doInput = true
@@ -41,10 +43,10 @@ class NetworkThread(
             connection.outputStream.write(data.toByteArray(StandardCharsets.UTF_8))
             val bytes = ByteArray(1024)
             val len = connection.inputStream.read(bytes)
-            return String(bytes, 0, len, StandardCharsets.UTF_8)
+            result = String(bytes, 0, len, StandardCharsets.UTF_8)
         }, {
-            return ""
+            result = ""
         })
-        return ""
+        return result
     }
 }

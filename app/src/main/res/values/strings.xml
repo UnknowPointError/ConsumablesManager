@@ -26,4 +26,8 @@
     <string name="apply_errorStyly">格式错误！</string>
     <string name="apply_errorCsaNameNull">添加的耗材名称不能为空！</string>
     <string name="apply_errorCsaCountNull">添加的耗材数量不能为空！</string>
+    <string name="apply_applicationBtn">申请耗材</string>
+    <string name="apply_loading">正在加载…</string>
+    <string name="apply_nullloading">暂无更多数据!</string>
+    <string name="apply_nullCsa">暂时没有库存哟！</string>
 </resources>

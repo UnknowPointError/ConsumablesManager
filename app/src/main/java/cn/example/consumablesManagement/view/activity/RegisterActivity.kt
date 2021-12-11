@@ -7,8 +7,6 @@ import androidx.core.widget.addTextChangedListener
 import cn.example.consumablesManagement.databinding.RegisterActivityBinding
 import cn.example.consumablesManagement.logic.network.NetworkSettings
 import cn.example.consumablesManagement.logic.network.NetworkThread
-import cn.example.consumablesManagement.util.Loading.reloading
-import cn.example.consumablesManagement.util.Loading.unloading
 import cn.smssdk.EventHandler
 import cn.smssdk.SMSSDK
 import cn.smssdk.gui.RegisterPage
@@ -19,7 +17,10 @@ import java.lang.StringBuilder
 import java.util.concurrent.FutureTask
 import kotlin.concurrent.thread
 import cn.example.consumablesManagement.logic.model.ResponseBody
-import cn.example.consumablesManagement.util.Toasts.showSnackBar
+import cn.example.consumablesManagement.util.Loading
+import cn.example.consumablesManagement.util.NetWork
+import cn.example.consumablesManagement.util.ShowUtil.showSnackBar
+import cn.example.consumablesManagement.util.TryCatchUtil
 
 class RegisterActivity : AppCompatActivity() {
 
@@ -116,20 +117,17 @@ class RegisterActivity : AppCompatActivity() {
         }
 
         private fun registerJudge() = mBinding.apply {
-            reloading()
-            val signUpTask =
-                FutureTask(
-                    NetworkThread(
-                        registerUser.text.toString(),
-                        registerPwd.text.toString(),
-                        registerId.text.toString(),
-                        url = NetworkSettings.SIGN_UP
-                    )
-                )
-            Thread(signUpTask).start()
-            try {
+            loading.reloading(context = main)
+            TryCatchUtil.tryCatch({
                 thread {
-                    val body = Gson().fromJson(signUpTask.get(), ResponseBody::class.java)
+                    val body = NetWork.connect<ResponseBody>(
+                        NetworkThread(
+                            registerUser.text.toString(),
+                            registerPwd.text.toString(),
+                            registerId.text.toString(),
+                            url = NetworkSettings.SIGN_UP
+                        )
+                    )
                     runOnUiThread {
                         if (body.code == 200) {
                             mBinding.root.showSnackBar("注册成功！")
@@ -138,14 +136,14 @@ class RegisterActivity : AppCompatActivity() {
                         } else {
                             mBinding.root.showSnackBar("账号已存在，请换一个试试。")
                         }
-                        unloading()
+                        loading.unloading()
                     }
                 }
-            } catch (e: Exception) {
-                e.printStackTrace()
-                unloading()
-            }
+            }, {
+                loading.unloading()
+            })
         }
+
 
         private fun showRegisterUI() {
             val page = RegisterPage()
@@ -174,6 +172,7 @@ class RegisterActivity : AppCompatActivity() {
     private val main = this
     private var eventHandler = EventHandler()
     private val registerManager = RegisterManager()
+    private val loading = Loading()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
