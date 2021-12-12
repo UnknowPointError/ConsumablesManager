@@ -1,7 +1,5 @@
 package cn.example.consumablesManagement.view.fragment
 
-import android.app.Activity
-import android.content.Context
 import android.content.Intent
 import android.graphics.Typeface
 import androidx.lifecycle.ViewModelProvider
@@ -10,12 +8,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toolbar
-import androidx.appcompat.app.AppCompatActivity
-import cn.example.consumablesManagement.R
 import cn.example.consumablesManagement.databinding.FragmentUserBinding
-import cn.example.consumablesManagement.view.activity.HomeActivity
+import cn.example.consumablesManagement.util.appUtil.SPUtil.getString
 import cn.example.consumablesManagement.view.activity.LoginActivity
+import cn.example.consumablesManagement.view.fragment.viewModel.UserViewModel
 import com.google.android.material.appbar.AppBarLayout
 
 class UserFragment(var asd: Any? = null) : Fragment() {
@@ -30,7 +26,7 @@ class UserFragment(var asd: Any? = null) : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         mBinding = FragmentUserBinding.inflate(inflater, container, false)
         return mBinding.root
     }
@@ -39,10 +35,8 @@ class UserFragment(var asd: Any? = null) : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(this).get(UserViewModel::class.java)
         mBinding.apply {
-            userTextView.text = activity?.getSharedPreferences("user", Context.MODE_PRIVATE)
-                ?.getString("LastLoginUser", "")
-            userTextView.typeface =
-                Typeface.createFromAsset(activity?.assets, "fonts/HarmonyOS-Font.ttf")
+            userTextView.text = getString("LastLoginUser")
+            userTextView.typeface = Typeface.createFromAsset(activity?.assets, "fonts/HarmonyOS-Font.ttf")
             val listener = AppBarLayout.OnOffsetChangedListener { _, verticalOffset ->
                 val seekPosition = -verticalOffset / userAppBarLayout.totalScrollRange.toFloat()
                 userMotionLayout.progress = seekPosition

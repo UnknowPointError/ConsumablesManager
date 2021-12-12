@@ -1,4 +1,4 @@
-package cn.example.consumablesManagement.view.fragment
+package cn.example.consumablesManagement.view.fragment.viewModel
 
 import android.app.Activity
 import android.content.Context
@@ -9,6 +9,9 @@ import androidx.lifecycle.ViewModel
 import java.io.File
 
 class ApplyViewModel : ViewModel() {
+
+
+
     // TODO: Implement the ViewModel
     private val _authority = MutableLiveData("cn.example.consumablesManagement.view.fragment")
     val authority: LiveData<String> get() = _authority
@@ -33,4 +36,5 @@ class ApplyViewModel : ViewModel() {
     fun setActivity(activity: Activity){
         _activity.value = activity
     }
+
 }

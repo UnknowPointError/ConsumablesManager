@@ -1,19 +1,13 @@
-package cn.example.consumablesManagement.util
+package cn.example.consumablesManagement.util.ktUtil
 
 import Decoder.BASE64Decoder
 import Decoder.BASE64Encoder
-import cn.example.consumablesManagement.logic.model.ConsumablesBody
-import cn.example.consumablesManagement.logic.model.ConsumablesData
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
 import java.io.IOException
 import java.lang.Exception
-import java.lang.reflect.Type
 import javax.crypto.Cipher
 import javax.crypto.KeyGenerator
 import javax.crypto.SecretKey
 import javax.crypto.spec.SecretKeySpec
-import kotlin.reflect.typeOf
 
 class AES {
     private val cipher = Cipher.getInstance("AES")

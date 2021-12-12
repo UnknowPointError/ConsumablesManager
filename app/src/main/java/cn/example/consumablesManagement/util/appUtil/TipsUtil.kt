@@ -1,23 +1,13 @@
-package cn.example.consumablesManagement.util
+package cn.example.consumablesManagement.util.appUtil
 
-import android.annotation.SuppressLint
 import android.content.Context
-import android.graphics.Color
 import android.view.*
-import android.widget.TextView
 import android.widget.Toast
 import cn.example.consumablesManagement.App
-import cn.example.consumablesManagement.R
 import com.google.android.material.snackbar.Snackbar
 
-/*************************
- * @ProjectName: ConsumablesManagement
- * @Dir_Path: app/src/main/java/cn/example/consumablesManagement/util
- * @Time: 2021 1:36 / 11月
- * @Author: BarryAllen
- * TODO: 显示showToast＆SnackBar
- **************************/
-object ShowUtil {
+/// [2021/12/12 19:42] 显示showToast＆SnackBar
+object TipsUtil {
 
     private var toast: Toast? = null
     private var snackbar: Snackbar? = null

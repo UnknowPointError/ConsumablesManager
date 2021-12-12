@@ -1,6 +1,6 @@
 package cn.example.consumablesManagement.logic.network
 
-import cn.example.consumablesManagement.util.TryCatchUtil
+import cn.example.consumablesManagement.util.ktUtil.TryCatchUtil
 import java.net.HttpURLConnection
 import java.net.URL
 import java.net.URLEncoder

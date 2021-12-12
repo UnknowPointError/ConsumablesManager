@@ -18,13 +18,14 @@
         <entry key="..\:/Barry/B_study/Android/Android_Project/ConsumablesManagement/app/src/main/res/layout/activity_main.xml" value="0.128" />
         <entry key="..\:/Barry/B_study/Android/Android_Project/ConsumablesManagement/app/src/main/res/layout/activity_main2.xml" value="0.2418478260869565" />
         <entry key="..\:/Barry/B_study/Android/Android_Project/ConsumablesManagement/app/src/main/res/layout/add_consumables.xml" value="0.390625" />
+        <entry key="..\:/Barry/B_study/Android/Android_Project/ConsumablesManagement/app/src/main/res/layout/apply_consumables.xml" value="0.536" />
         <entry key="..\:/Barry/B_study/Android/Android_Project/ConsumablesManagement/app/src/main/res/layout/asdasd.xml" value="0.3482789855072464" />
         <entry key="..\:/Barry/B_study/Android/Android_Project/ConsumablesManagement/app/src/main/res/layout/consu_mables_fragment.xml" value="0.25833333333333336" />
         <entry key="..\:/Barry/B_study/Android/Android_Project/ConsumablesManagement/app/src/main/res/layout/custom_toast.xml" value="0.4" />
         <entry key="..\:/Barry/B_study/Android/Android_Project/ConsumablesManagement/app/src/main/res/layout/dialog.xml" value="0.4" />
-        <entry key="..\:/Barry/B_study/Android/Android_Project/ConsumablesManagement/app/src/main/res/layout/fragment_apply.xml" value="0.2" />
+        <entry key="..\:/Barry/B_study/Android/Android_Project/ConsumablesManagement/app/src/main/res/layout/fragment_apply.xml" value="0.1384180790960452" />
         <entry key="..\:/Barry/B_study/Android/Android_Project/ConsumablesManagement/app/src/main/res/layout/fragment_apply_loading.xml" value="0.25833333333333336" />
-        <entry key="..\:/Barry/B_study/Android/Android_Project/ConsumablesManagement/app/src/main/res/layout/fragment_apply_recyclerview.xml" value="0.3037974683544304" />
+        <entry key="..\:/Barry/B_study/Android/Android_Project/ConsumablesManagement/app/src/main/res/layout/fragment_apply_recyclerview.xml" value="0.4" />
         <entry key="..\:/Barry/B_study/Android/Android_Project/ConsumablesManagement/app/src/main/res/layout/fragment_consu_mables.xml" value="0.25833333333333336" />
         <entry key="..\:/Barry/B_study/Android/Android_Project/ConsumablesManagement/app/src/main/res/layout/fragment_consumables.xml" value="0.25833333333333336" />
         <entry key="..\:/Barry/B_study/Android/Android_Project/ConsumablesManagement/app/src/main/res/layout/fragment_user.xml" value="0.2" />
@@ -34,6 +35,7 @@
         <entry key="..\:/Barry/B_study/Android/Android_Project/ConsumablesManagement/app/src/main/res/layout/login_recyclerView.xml" value="0.2713541666666667" />
         <entry key="..\:/Barry/B_study/Android/Android_Project/ConsumablesManagement/app/src/main/res/layout/login_recyclerview.xml" value="0.1" />
         <entry key="..\:/Barry/B_study/Android/Android_Project/ConsumablesManagement/app/src/main/res/layout/login_recyclerview_item.xml" value="0.3727598566308244" />
+        <entry key="..\:/Barry/B_study/Android/Android_Project/ConsumablesManagement/app/src/main/res/layout/motion_buttonlayout.xml" value="0.25833333333333336" />
         <entry key="..\:/Barry/B_study/Android/Android_Project/ConsumablesManagement/app/src/main/res/layout/regeister_actiivty.xml" value="0.2713541666666667" />
         <entry key="..\:/Barry/B_study/Android/Android_Project/ConsumablesManagement/app/src/main/res/layout/regeister_activty.xml" value="0.264" />
         <entry key="..\:/Barry/B_study/Android/Android_Project/ConsumablesManagement/app/src/main/res/layout/register_activity.xml" value="0.264" />

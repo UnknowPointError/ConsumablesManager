@@ -21,16 +21,20 @@ import cn.example.consumablesManagement.logic.model.ResponseBody
 import cn.example.consumablesManagement.logic.network.NetworkSettings
 import cn.example.consumablesManagement.logic.network.NetworkThread
 import cn.example.consumablesManagement.util.*
-import cn.example.consumablesManagement.util.SpUtil.getBoolean
-import cn.example.consumablesManagement.util.SpUtil.getString
-import cn.example.consumablesManagement.util.SpUtil.putBoolean
-import cn.example.consumablesManagement.util.SpUtil.putString
-import cn.example.consumablesManagement.util.SpUtil.removeValue
-import cn.example.consumablesManagement.util.ShowUtil.showSnackBar
+import cn.example.consumablesManagement.util.appUtil.SPUtil.getBoolean
+import cn.example.consumablesManagement.util.appUtil.SPUtil.getString
+import cn.example.consumablesManagement.util.appUtil.SPUtil.putBoolean
+import cn.example.consumablesManagement.util.appUtil.SPUtil.putString
+import cn.example.consumablesManagement.util.appUtil.SPUtil.removeValue
+import cn.example.consumablesManagement.util.ktUtil.AES
+import cn.example.consumablesManagement.util.ktUtil.NetWorkUtil
+import cn.example.consumablesManagement.util.ktUtil.TryCatchUtil
+import cn.example.consumablesManagement.util.appUtil.TipsUtil.showSnackBar
+import cn.example.consumablesManagement.util.appUtil.Loading
+import cn.example.consumablesManagement.util.appUtil.StartActivityUtil.startActivity
+import cn.example.consumablesManagement.view.activity.viewModel.LoginViewModel
 import cn.example.consumablesManagement.view.adapter.LoginRecyclerViewAdapter
-import com.google.gson.Gson
 import java.lang.StringBuilder
-import java.util.concurrent.FutureTask
 import kotlin.concurrent.thread
 
 class LoginActivity : AppCompatActivity() {
@@ -90,7 +94,7 @@ class LoginActivity : AppCompatActivity() {
                     buttonView
                 )
             }
-            loginRegisterTextView.setOnClickListener { StartUtil.startActivity<RegisterActivity> { } }
+            loginRegisterTextView.setOnClickListener { startActivity<RegisterActivity> { } }
             loginRecyclerView.setOnClickListener { initRecyclerView() }
             loginPwdImage.setOnTouchListener { _, event ->
                 if (viewModel.working.value == false)
@@ -111,7 +115,7 @@ class LoginActivity : AppCompatActivity() {
             val pwdText = loginPwd.text.toString()
             TryCatchUtil.tryCatch({
                 thread {
-                    val body = NetWork.connect<ResponseBody>(
+                    val body = NetWorkUtil.connect<ResponseBody>(
                         NetworkThread(
                             userText,
                             pwdText,
@@ -178,7 +182,7 @@ class LoginActivity : AppCompatActivity() {
                                 mBinding.loginUser.text.toString()
                             )
                             finish()
-                            StartUtil.startActivity<HomeActivity> { }
+                            startActivity<HomeActivity> { }
                         } else mBinding.root.showSnackBar("登录失败！请检查账号密码是否正确！")
                         loading.unloading()
                     }

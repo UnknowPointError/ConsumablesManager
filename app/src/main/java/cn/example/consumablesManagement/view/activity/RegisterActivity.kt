@@ -11,16 +11,14 @@ import cn.smssdk.EventHandler
 import cn.smssdk.SMSSDK
 import cn.smssdk.gui.RegisterPage
 import com.fasterxml.jackson.databind.ObjectMapper
-import com.google.gson.Gson
 import com.mob.MobSDK
 import java.lang.StringBuilder
-import java.util.concurrent.FutureTask
 import kotlin.concurrent.thread
 import cn.example.consumablesManagement.logic.model.ResponseBody
-import cn.example.consumablesManagement.util.Loading
-import cn.example.consumablesManagement.util.NetWork
-import cn.example.consumablesManagement.util.ShowUtil.showSnackBar
-import cn.example.consumablesManagement.util.TryCatchUtil
+import cn.example.consumablesManagement.util.appUtil.Loading
+import cn.example.consumablesManagement.util.ktUtil.NetWorkUtil
+import cn.example.consumablesManagement.util.appUtil.TipsUtil.showSnackBar
+import cn.example.consumablesManagement.util.ktUtil.TryCatchUtil
 
 class RegisterActivity : AppCompatActivity() {
 
@@ -120,7 +118,7 @@ class RegisterActivity : AppCompatActivity() {
             loading.reloading(context = main)
             TryCatchUtil.tryCatch({
                 thread {
-                    val body = NetWork.connect<ResponseBody>(
+                    val body = NetWorkUtil.connect<ResponseBody>(
                         NetworkThread(
                             registerUser.text.toString(),
                             registerPwd.text.toString(),

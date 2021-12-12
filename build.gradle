@@ -10,7 +10,7 @@ buildscript {
         // 华为开源镜像：https://mirrors.huaweicloud.com
     }
     dependencies {
-        classpath "com.android.tools.build:gradle:7.0.3"
+        classpath 'com.android.tools.build:gradle:7.0.4'
         classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.6.0'
         classpath "com.mob.sdk:MobSDK:+"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"

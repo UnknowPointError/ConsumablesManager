@@ -1,4 +1,4 @@
-package cn.example.consumablesManagement.view.fragment
+package cn.example.consumablesManagement.view.fragment.viewModel
 
 import androidx.lifecycle.ViewModel
 

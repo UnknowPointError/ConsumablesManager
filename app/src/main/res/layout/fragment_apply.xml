@@ -10,7 +10,7 @@
         android:id="@+id/applyAppbarLayout"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="#B1A7A7">
+        android:background="@color/homeBarColor">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -23,7 +23,7 @@
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
                 android:background="@drawable/ripper_bg"
-                android:backgroundTint="#B1A7A7"
+                android:backgroundTint="@color/homeBarColor"
                 android:contentDescription="@string/icon"
                 android:padding="0dp"
                 android:scaleType="fitXY"
@@ -47,18 +47,19 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/applyRecyclerView"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                android:background="@color/homeColor" />
 
             <TextView
                 android:id="@+id/applyNullCsa"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:text="@string/apply_nullCsa"
                 android:textColor="@color/black"
-                android:visibility="gone"
-                android:textStyle="bold"
                 android:textSize="30sp"
-                android:layout_gravity="center"/>
+                android:textStyle="bold"
+                android:visibility="gone" />
 
         </FrameLayout>
 

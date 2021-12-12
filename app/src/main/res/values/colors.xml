@@ -10,5 +10,6 @@
     <color name="red_700">#FFD32F2F</color>
     <color name="red_400">#FFEF5350</color>
     <color name="huise">#636262</color>
-    <color name="test">#B1A7A7</color>
+    <color name="homeColor">#EFEEEE</color>
+    <color name="homeBarColor">#D6D5D5</color>
 </resources>

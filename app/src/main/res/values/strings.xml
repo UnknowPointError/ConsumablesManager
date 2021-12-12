@@ -30,4 +30,7 @@
     <string name="apply_loading">正在加载…</string>
     <string name="apply_nullloading">暂无更多数据!</string>
     <string name="apply_nullCsa">暂时没有库存哟！</string>
+    <string name="apply_showCsaCount">库存数量: </string>
+    <string name="apply_removeCsa">删除耗材</string>
+    <string name="apply_submitCsa">提交申请</string>
 </resources>

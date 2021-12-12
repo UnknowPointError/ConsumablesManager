@@ -1,26 +1,14 @@
 package cn.example.consumablesManagement.view.activity
 
 import android.annotation.SuppressLint
-import android.content.Context
-import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.AttributeSet
-import android.view.MotionEvent
-import androidx.annotation.Nullable
-import androidx.recyclerview.widget.RecyclerView
-import androidx.viewpager2.widget.ViewPager2
 import cn.example.consumablesManagement.databinding.HomeActivityBinding
-import cn.example.consumablesManagement.util.Loading
-import cn.example.consumablesManagement.util.USERDATA
 import cn.example.consumablesManagement.view.adapter.HomeViewPagerAdapter
 import cn.example.consumablesManagement.view.fragment.ApplyFragment
-import cn.example.consumablesManagement.view.fragment.ApplyViewModel
 import cn.example.consumablesManagement.view.fragment.ConsuMablesFragment
 import cn.example.consumablesManagement.view.fragment.UserFragment
 import com.google.android.material.tabs.TabLayoutMediator
-import com.mob.tools.gui.ViewPagerAdapter
-import kotlin.concurrent.thread
 
 class HomeActivity : AppCompatActivity() {
 

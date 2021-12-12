@@ -1,4 +1,4 @@
-package cn.example.consumablesManagement.util
+package cn.example.consumablesManagement.util.appUtil
 
 import android.app.AlertDialog
 import android.content.Context
@@ -6,8 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import cn.example.consumablesManagement.R
 
-// @TODO: DataTime = 2021/11/29 8:56
-// @TODO: 加载样式工具类
+// [2021/11/29 8:56] 加载样式工具类
 class Loading {
 
     private var builder: AlertDialog.Builder? = null

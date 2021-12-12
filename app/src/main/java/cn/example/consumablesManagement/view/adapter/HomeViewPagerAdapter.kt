@@ -3,7 +3,6 @@ package cn.example.consumablesManagement.view.adapter
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import cn.example.consumablesManagement.util.Loading
 
 /*************************
  * @ProjectName: ConsumablesManagement
