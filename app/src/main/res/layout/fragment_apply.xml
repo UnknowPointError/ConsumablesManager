@@ -12,24 +12,61 @@
         android:layout_height="?attr/actionBarSize"
         android:background="@color/homeBarColor">
 
-        <RelativeLayout
+        <com.google.android.material.appbar.CollapsingToolbarLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="?attr/actionBarSize"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
-            <ImageButton
-                android:id="@+id/applyAddCSA"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
-                android:background="@drawable/ripper_bg"
-                android:backgroundTint="@color/homeBarColor"
-                android:contentDescription="@string/icon"
-                android:padding="0dp"
-                android:scaleType="fitXY"
-                android:src="@drawable/add" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-        </RelativeLayout>
+                <ImageButton
+                    android:id="@+id/applyShowUser"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_margin="2.5dp"
+                    android:backgroundTint="@color/homeBarColor"
+                    android:contentDescription="@string/icon"
+                    android:padding="0dp"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/usermsg" />
+
+                <EditText
+                    android:id="@+id/consumeSearchEdit"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_margin="2.5dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/search_bg"
+                    android:hint="@string/search"
+                    app:layout_constraintEnd_toStartOf="@+id/applySearchCsa"
+                    app:layout_constraintStart_toEndOf="@+id/applyShowUser"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageButton
+                    android:id="@+id/applySearchCsa"
+                    android:layout_width="50dp"
+                    android:layout_height="match_parent"
+                    android:layout_margin="2.5dp"
+                    android:contentDescription="@string/icon"
+                    android:src="@drawable/gotosearch"
+                    app:layout_constraintEnd_toStartOf="@+id/applyAddCSA"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageButton
+                    android:id="@+id/applyAddCSA"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_margin="2.5dp"
+                    android:contentDescription="@string/icon"
+                    android:src="@drawable/add"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </LinearLayout>
+
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
 
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -47,18 +84,14 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/applyRecyclerView"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/homeColor" />
+                android:layout_height="match_parent" />
 
             <TextView
                 android:id="@+id/applyNullCsa"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="@string/apply_nullCsa"
-                android:textColor="@color/black"
-                android:textSize="30sp"
-                android:textStyle="bold"
+                android:text="@string/nothing"
                 android:visibility="gone" />
 
         </FrameLayout>

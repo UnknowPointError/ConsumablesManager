@@ -12,4 +12,6 @@
     <color name="huise">#636262</color>
     <color name="homeColor">#EFEEEE</color>
     <color name="homeBarColor">#D6D5D5</color>
+    <color name="buttonColor">#F35389</color>
+    <color name="buttonColorH">#600F2A</color>
 </resources>

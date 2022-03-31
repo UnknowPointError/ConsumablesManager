@@ -2,13 +2,15 @@ package cn.example.consumablesManagement.view.activity
 
 import android.annotation.SuppressLint
 import android.app.AlertDialog
+import android.content.Context
 import android.graphics.Color
+import android.graphics.Rect
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.KeyEvent
 import android.view.MotionEvent
 import android.view.View
-import android.widget.CompoundButton
+import android.view.inputmethod.InputMethodManager
 import android.widget.PopupWindow
 import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.ViewModelProvider
@@ -16,9 +18,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import cn.example.consumablesManagement.R
 import cn.example.consumablesManagement.databinding.ActivityMainBinding
-import cn.example.consumablesManagement.databinding.LoginActivityBinding
-import cn.example.consumablesManagement.logic.model.ResponseBody
-import cn.example.consumablesManagement.logic.network.NetworkSettings
 import cn.example.consumablesManagement.logic.network.NetworkThread
 import cn.example.consumablesManagement.util.*
 import cn.example.consumablesManagement.util.appUtil.SPUtil.getBoolean
@@ -27,378 +26,291 @@ import cn.example.consumablesManagement.util.appUtil.SPUtil.putBoolean
 import cn.example.consumablesManagement.util.appUtil.SPUtil.putString
 import cn.example.consumablesManagement.util.appUtil.SPUtil.removeValue
 import cn.example.consumablesManagement.util.ktUtil.AES
-import cn.example.consumablesManagement.util.ktUtil.NetWorkUtil
-import cn.example.consumablesManagement.util.ktUtil.TryCatchUtil
 import cn.example.consumablesManagement.util.appUtil.TipsUtil.showSnackBar
-import cn.example.consumablesManagement.util.appUtil.Loading
 import cn.example.consumablesManagement.util.appUtil.StartActivityUtil.startActivity
+import cn.example.consumablesManagement.util.ktUtil.ActionTickUtil.actionInterval
+import cn.example.consumablesManagement.util.ktUtil.ActionTickUtil.networkInterval
 import cn.example.consumablesManagement.view.activity.viewModel.LoginViewModel
 import cn.example.consumablesManagement.view.adapter.LoginRecyclerViewAdapter
-import java.lang.StringBuilder
-import kotlin.concurrent.thread
+import android.widget.EditText
 
+
+// @formatter:off
+@SuppressLint("ClickableViewAccessibility")
 class LoginActivity : AppCompatActivity() {
 
-    @SuppressLint("ClickableViewAccessibility", "InflateParams")
-    inner class LoginManager(private val mBinding: LoginActivityBinding) {
-
-        private val data = ArrayList<LoginRecyclerViewAdapter.User>()
-        private val aes = AES()
-
-        fun initUI() {
-            supportActionBar?.hide()
-            window.statusBarColor = Color.TRANSPARENT
-            mBinding.apply {
-                loginPwd.inputType = 0x00000081
-                if (getString("username") != "")
-                    loginRecyclerView.visibility = View.VISIBLE
-                else // 如果有保存的账号，则显示下拉列表按钮 否则不显示下拉列表按钮
-                    loginRecyclerView.visibility = View.GONE
-                // 读取true＆false 初始化复选框勾选状态
-                if (getBoolean("RemeberUser") as Boolean) {
-                    loginRemeberUser.isChecked = true
-                    if (getBoolean("RemeberPwd") == true) {
-                        loginRemeberPwd.isChecked = true
-                        loginAutoRemember.isChecked = getBoolean("RemeberAutoLogin") == true
-                    }
-                }
-                if (loginAutoRemember.isChecked) {
-                    val lastLoginUser = getString("LastLoginUser")
-                    if (lastLoginUser != "") {
-                        loginUser.setText(lastLoginUser)
-                        loginPwd.setText(
-                            aes.decrypt(
-                                getString("password$lastLoginUser"),
-                                aes.loadKeyAES(viewModel.aesKEY.value)
-                            )
-                        )
-                        if (intent.getBooleanExtra("ExitByUser", true))
-                            login()
-                    }
-                }
-            }
-        }
-
-        fun initComponent() = mBinding.apply {
-            loginUser.addTextChangedListener { if (viewModel.working.value == false) initLoginUser() }
-            loginPwd.addTextChangedListener { if (viewModel.working.value == false) initLoginPwd("textChanged") }
-            loginRemeberPwd.setOnCheckedChangeListener { buttonView, _ ->
-                reinitializeCheck(
-                    buttonView
-                )
-            }
-            loginClearPwdImage.setOnClickListener { reinitializeClearPwd("pwd") }
-            loginClearUserImage.setOnClickListener { reinitializeClearPwd("user") }
-            loginRemeberUser.setOnCheckedChangeListener { buttonView, _ ->
-                reinitializeCheck(
-                    buttonView
-                )
-            }
-            loginRegisterTextView.setOnClickListener { startActivity<RegisterActivity> { } }
-            loginRecyclerView.setOnClickListener { initRecyclerView() }
-            loginPwdImage.setOnTouchListener { _, event ->
-                if (viewModel.working.value == false)
-                    initLoginPwd("onTouch", event)
-                true
-            }
-            loginBtn.setOnClickListener { login() }
-            loginAutoRemember.setOnCheckedChangeListener { buttonView, _ ->
-                reinitializeCheck(
-                    buttonView
-                )
-            }
-        }
-
-        private fun login() = mBinding.apply {
-            loading.reloading(context = this@LoginActivity)
-            val userText = loginUser.text.toString()
-            val pwdText = loginPwd.text.toString()
-            TryCatchUtil.tryCatch({
-                thread {
-                    val body = NetWorkUtil.connect<ResponseBody>(
-                        NetworkThread(
-                            userText,
-                            pwdText,
-                            url = NetworkSettings.SIGN_IN
-                        )
-                    )
-                    runOnUiThread {
-                        if (body.code == 200) {
-                            if (loginRemeberUser.isChecked) {
-                                val username = getString("username")
-                                if (username == "") putString(
-                                    "username",
-                                    "${loginUser.text}"
-                                )
-                                else if (username?.contains(loginUser.text) == false) putString(
-                                    "username",
-                                    "$username,${loginUser.text}"
-                                )
-                                loginRecyclerView.visibility = View.VISIBLE
-                            } else {
-                                getString("username").apply {
-                                    val userContent = loginUser.text
-                                    when {
-                                        this?.contains(",$userContent") == true -> {
-                                            removeValue("username")
-                                            putString(
-                                                "username",
-                                                this.removeSuffix(",$userContent")
-                                            )
-                                        }
-                                        this?.contains("$userContent,") == true -> {
-                                            removeValue("username")
-                                            putString(
-                                                "username",
-                                                this.removePrefix("$userContent,")
-                                            )
-                                        }
-                                        this?.contains("$userContent") == true -> {
-                                            removeValue("username")
-                                            putString(
-                                                "username",
-                                                this.removePrefix(userContent)
-                                            )
-                                            loginRecyclerView.visibility = View.GONE
-                                        }
-                                    }
-                                }
-                            }
-                            if (loginRemeberPwd.isChecked) {
-                                if (getString("password${loginUser.text}") == "")
-                                    putString(
-                                        "password${loginUser.text}",
-                                        aes.encrypt(
-                                            loginPwd.text.toString(),
-                                            aes.loadKeyAES(viewModel.aesKEY.value)
-                                        )
-                                    )
-                                loginRecyclerView.visibility = View.VISIBLE
-                            } else removeValue("password${loginUser.text}")
-                            mBinding.root.showSnackBar("登录成功！")
-                            USERDATA.userName = loginUser.text.toString()
-                            putString(
-                                "LastLoginUser",
-                                mBinding.loginUser.text.toString()
-                            )
-                            finish()
-                            startActivity<HomeActivity> { }
-                        } else mBinding.root.showSnackBar("登录失败！请检查账号密码是否正确！")
-                        loading.unloading()
-                    }
-
-                }
-            }, {
-                loading.unloading()
-            }, {
-                thread {
-                    Thread.sleep(4000)
-                    if (loading.isloading() == true) {
-                        loading.unloading()
-                        runOnUiThread { root.showSnackBar("网络异常。") }
-                    }
-                }
-            })
-        }
-
-        private fun reinitializeClearPwd(name: String) = mBinding.apply {
-            when (name) {
-                "user" -> {
-                    loginUser.text = null
-                    loginClearUserImage.visibility = View.INVISIBLE
-                }
-                "pwd" -> {
-                    loginPwd.text = null
-                    loginClearPwdImage.visibility = View.INVISIBLE
-                    loginPwdImage.visibility = View.INVISIBLE
-                }
-            }
-        }
-
-        private fun reinitializeCheck(checkBox: CompoundButton) = mBinding.apply {
-            when (checkBox.id) {
-                loginRemeberUser.id -> {
-                    val isRemeberUser = getBoolean("RemeberUser")
-                    if (loginRemeberUser.isChecked) {
-                        if (isRemeberUser == false)
-                            putBoolean("RemeberUser", true)
-                    } else {
-                        if (isRemeberUser == true)
-                            putBoolean("RemeberUser", false)
-                        loginRemeberPwd.isChecked = false
-                        loginAutoRemember.isChecked = false
-                    }
-                }
-                loginRemeberPwd.id -> {
-                    val isRemeberPwd = getBoolean("RemeberPwd")
-                    if (loginRemeberPwd.isChecked) {
-                        loginRemeberUser.isChecked = true
-                        if (isRemeberPwd == false)
-                            putBoolean("RemeberPwd", true)
-                    } else {
-                        if (isRemeberPwd == true)
-                            putBoolean("RemeberPwd", false)
-                        loginAutoRemember.isChecked = false
-                    }
-                }
-                loginAutoRemember.id -> {
-                    val autoLogin = getBoolean("RemeberAutoLogin")
-                    if (loginAutoRemember.isChecked) {
-                        loginRemeberUser.isChecked = true
-                        loginRemeberPwd.isChecked = true
-                        if (autoLogin == false)
-                            putBoolean("RemeberAutoLogin", true)
-                    } else {
-                        if (autoLogin == true)
-                            putBoolean("RemeberAutoLogin", false)
-                    }
-                }
-            }
-        }
-
-        private fun initRecyclerView() = mBinding.apply {
-            data.clear()
-            viewModel.userSplitContent.value?.clear()
-            val userContent = getString("username")!!
-            if (userContent.contains(",")) (viewModel.userSplitContent.value)?.plusAssign(
-                userContent.split(",").toMutableList()
-            )
-            else viewModel.userSplitContent.value?.add(userContent)
-            val size = viewModel.userSplitContent.value?.size
-            repeat(size!!) {
-                data.add(
-                    LoginRecyclerViewAdapter.User(
-                        viewModel.userSplitContent.value?.get(
-                            it
-                        )!!
-                    )
-                )
-            }
-            val popupView = layoutInflater.inflate(R.layout.login_recyclerview, null)
-            val popupWindow = PopupWindow(popupView, longinUserCardView.width, 200)
-            val loginListPop = popupView.findViewById(R.id.loginRecyclerView) as RecyclerView
-            loginListPop.layoutManager = LinearLayoutManager(this@LoginActivity)
-            val adapter = LoginRecyclerViewAdapter(data)
-            adapter.nameBlock = {
-                val key = aes.loadKeyAES(viewModel.aesKEY.value)
-                getString("password${it.userName}").apply {
-                    loginPwd.text = null
-                    loginUser.setText(it.userName)
-                    loginUser.setSelection(loginUser.length())
-                    if (!this.isNullOrBlank())
-                        loginPwd.setText(aes.decrypt(this, key))
-                }
-                popupWindow.dismiss()
-            }
-            adapter.cancleBlock = {
-                AlertDialog.Builder(this@LoginActivity).apply {
-                    setTitle("提示")
-                    setMessage("你确定删除当前选择的账号吗？")
-                    setIcon(R.drawable.tips)
-                    setCancelable(true)
-                    setPositiveButton("确定") { dialog, _ ->
-                        val userData = getString("username")!!
-                        removeValue("username")
-                        removeValue("password${it.userName}")
-                        when {
-                            userData.contains(",${it.userName}") -> putString(
-                                "username",
-                                userData.removeSuffix(",${it.userName}")
-                            )
-                            userData.contains("${it.userName},") -> putString(
-                                "username",
-                                userData.removePrefix("${it.userName},")
-                            )
-                            else -> loginRecyclerView.visibility = View.GONE
-                        }
-                        popupWindow.dismiss()
-                        dialog.dismiss()
-                    }
-                    setNegativeButton("取消") { dialog, _ ->
-                        dialog.dismiss()
-                    }
-                    show()
-                }
-            }
-            loginListPop.adapter = adapter
-            loginListPop.background.alpha = 255
-            popupWindow.isOutsideTouchable = true
-            popupWindow.showAsDropDown(longinUserCardView, 0, 5)
-        }
-
-        private fun initLoginPwd(mode: String, event: MotionEvent? = null) = mBinding.apply {
-            when (mode) {
-                "textChanged" -> {
-                    viewModel.isWorking()
-                    if (loginPwd.length() > 0) {
-                        val stringBuilder = StringBuilder()
-                        loginPwd.text.forEach {
-                            if ((it in '0'..'9') || (it in 'a'..'z') || (it in 'A'..'Z')) {
-                                stringBuilder.append(it)
-                            }
-                        }
-                        loginPwd.setText(stringBuilder)
-                        loginPwd.setSelection(loginPwd.length())
-                    }
-                    if (loginClearPwdImage.visibility == View.INVISIBLE)
-                        loginClearPwdImage.visibility = View.VISIBLE
-                    if (loginPwdImage.visibility == View.INVISIBLE)
-                        loginPwdImage.visibility = View.VISIBLE
-                    if (loginPwd.text.isEmpty()) {
-                        loginPwdImage.visibility = View.INVISIBLE
-                        loginClearPwdImage.visibility = View.INVISIBLE
-                    }
-                    viewModel.cancelWork()
-                }
-                "onTouch" -> {
-                    when (event?.action) {
-                        KeyEvent.ACTION_UP -> {
-                            loginPwd.inputType = 0x00000081
-                            loginPwd.setSelection(loginPwd.length())
-                            loginPwdImage.setImageResource(R.drawable.eye)
-                        }
-                        KeyEvent.ACTION_DOWN -> {
-                            loginPwd.inputType = 0x00000001
-                            loginPwd.setSelection(loginPwd.length())
-                            loginPwdImage.setImageResource(R.drawable.eye_slash)
-                        }
-                    }
-                }
-            }
-        }
-
-        private fun initLoginUser() = mBinding.apply {
-            viewModel.isWorking()
-            if (loginUser.length() > 0) {
-                val stringBuilder = StringBuilder()
-                loginUser.text.forEach {
-                    if ((it in '0'..'9') || (it in 'a'..'z') || (it in 'A'..'Z') || (it == '@' || it == '.')) {
-                        stringBuilder.append(it)
-                    }
-                }
-                loginUser.setText(stringBuilder)
-                loginUser.setSelection(loginUser.length())
-            }
-            if (loginClearUserImage.visibility == View.INVISIBLE)
-                loginClearUserImage.visibility = View.VISIBLE
-            if (loginUser.text.isEmpty())
-                loginClearUserImage.visibility = View.INVISIBLE
-            viewModel.cancelWork()
-        }
-
-    }
-
+    private val aes = AES()
     private val mBinding by lazy { ActivityMainBinding.inflate(layoutInflater) }
-    private val loginManager by lazy { LoginManager(mBinding.loginLayout) }
-    private val loading = Loading()
+    private val loginLayout by lazy { mBinding.loginLayout }
     private lateinit var viewModel: LoginViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(mBinding.root)
-        viewModel = ViewModelProvider(this).get(LoginViewModel::class.java)
-        loginManager.initUI()
-        loginManager.initComponent()
+        initObserver()
+        initialize()
     }
 
+    // [2021/12/30 9:42] 点击控件外部范围取消焦点
+    override fun dispatchTouchEvent(event:MotionEvent): Boolean{
+        if (event.action == MotionEvent.ACTION_DOWN){
+            val viewFocus = currentFocus
+            if (viewFocus is EditText){
+                val outRect = Rect()
+                viewFocus.getGlobalVisibleRect(outRect)
+                if (!outRect.contains(event.rawX.toInt(), event.rawY.toInt())){
+                    viewFocus.clearFocus()
+                    val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                    imm.hideSoftInputFromWindow(viewFocus.getWindowToken(), 0)
+                }
+            }
+        }
+        return super.dispatchTouchEvent(event)
+    }
+
+    // [2021/12/30 9:43] 初始化观察者
+    private fun initObserver() = loginLayout.apply {
+        viewModel = ViewModelProvider(this@LoginActivity).get(LoginViewModel::class.java)
+        viewModel.responseBody.observe(this@LoginActivity) {
+            if (it.code == 200) {
+                loginLayout.root.showSnackBar(it.data.toString())
+                if (loginRemeberUser.isChecked) viewModel.toSaveUser(loginUser.loginEditText.text.toString())
+                else viewModel.toRemoveUser(loginUser.loginEditText.text.toString())
+                if (loginRemeberPwd.isChecked) viewModel.toSavePwd(loginUser.loginEditText.text.toString(),aes.encrypt(loginPwd.loginEditText.text.toString(), aes.loadKeyAES(AppData.AES_KEY)))
+                else viewModel.toRemovePwd(loginUser.loginEditText.text.toString())
+                AppData.userName = loginUser.loginEditText.text.toString()
+                putString(viewModel.lastLoginUser, loginUser.loginEditText.text.toString())
+                startActivity<HomeActivity> { }
+                finish()
+            } else {
+                loginLayout.root.showSnackBar(it.data.toString())
+            }
+        }
+        viewModel.drowDownList.observe(this@LoginActivity) {
+            if (it) loginUser.loginEndImage.visibility = View.GONE
+            else loginUser.loginEndImage.visibility = View.VISIBLE
+        }
+        viewModel.userContent.observe(this@LoginActivity) {
+            loginUser.loginEditText.setText(it)
+            loginUser.loginEditText.setSelection(loginUser.loginEditText.length())
+            if (loginUser.loginEditText.length() != 0 && loginUser.loginEditText.isFocused)
+                loginUser.loginStartImage.visibility = View.VISIBLE
+            else
+                loginUser.loginStartImage.visibility = View.INVISIBLE
+        }
+        viewModel.pwdContent.observe(this@LoginActivity) {
+            loginPwd.loginEditText.setText(it)
+            loginPwd.loginEditText.setSelection(loginPwd.loginEditText.length())
+            if (loginPwd.loginEditText.length() != 0 && loginPwd.loginEditText.isFocused)  {
+                loginPwd.loginStartImage.visibility = View.VISIBLE
+                loginPwd.loginEndImage.visibility = View.VISIBLE
+            } else {
+                loginPwd.loginEndImage.visibility = View.INVISIBLE
+                loginPwd.loginEndImage.visibility = View.INVISIBLE
+            }
+        }
+        viewModel.newUserName.observe(this@LoginActivity) {
+            loginUser.loginEditText.setText(it)
+        }
+        viewModel.newPassWord.observe(this@LoginActivity) {
+            loginPwd.loginEditText.setText(it)
+        }
+    }
+
+    // [2021/12/12 22:49] 初始化UI
+    private fun initialize() = loginLayout.apply {
+        initLoadView { user, pwd, autoLogin ->
+            if(user) loginRemeberUser.isChecked = true
+            if(pwd) loginRemeberPwd.isChecked = true
+            if(autoLogin) loginAutoRemember.isChecked = true
+            if (isNotBlank()) loginUser.loginEndImage.visibility = View.VISIBLE
+            else loginUser.loginEndImage.visibility = View.GONE
+        }
+        supportActionBar?.hide()
+        window.statusBarColor = Color.TRANSPARENT
+        loginPwd.loginEditText.inputType = AppData.INPUTTEXT_PASSWORD
+        loginUser.loginStartImage.setImageResource(R.drawable.close)
+        loginUser.loginEndImage.setImageResource(R.drawable.drop_downlist)
+        loginPwd.loginStartImage.setImageResource(R.drawable.close)
+        loginPwd.loginEndImage.setImageResource(R.drawable.eye_slash)
+        loginUser.loginEditText.addTextChangedListener { actionInterval{ viewModel.setUserEditTextStatus(loginUser.loginEditText.text!!) } }
+        loginPwd.loginEditText.addTextChangedListener { actionInterval { viewModel.setPwdEditTextStatus(loginPwd.loginEditText.text!!) } }
+        loginRegisterTextView.setOnClickListener { actionInterval { startActivity<RegisterActivity> { } } }
+        loginUser.loginEndImage.setOnClickListener {
+            actionInterval {
+                if (!viewModel.dropDownListStatus) {
+                    viewModel.dropDownListStatus = true
+                    loginUser.loginEndImage.setImageResource(R.drawable.drop_downclose)
+                    setDropDownList()
+                } else {
+                    viewModel.dropDownListStatus = false
+                    loginUser.loginEndImage.setImageResource(R.drawable.drop_downlist)
+                }
+            }
+        }
+        loginUser.loginEditText.setOnFocusChangeListener { _, hasFocus ->
+            actionInterval {
+                if (hasFocus && loginUser.loginEditText.length() != 0) loginUser.loginStartImage.visibility = View.VISIBLE
+                else loginUser.loginStartImage.visibility = View.INVISIBLE
+            }
+        }
+        loginPwd.loginEditText.setOnFocusChangeListener { _, hasFocus ->
+            actionInterval {
+                if (hasFocus && loginPwd.loginEditText.length() != 0) {
+                    loginPwd.loginStartImage.visibility = View.VISIBLE
+                    loginPwd.loginEndImage.visibility = View.VISIBLE
+                } else {
+                    loginPwd.loginEndImage.visibility = View.INVISIBLE
+                    loginPwd.loginStartImage.visibility = View.INVISIBLE
+                }
+            }
+        }
+        loginBtn.setOnClickListener { networkInterval { login() } }
+        loginPwd.loginStartImage.setOnClickListener {
+            actionInterval {
+                loginPwd.loginEditText.text = null
+                loginPwd.loginStartImage.visibility = View.INVISIBLE
+                loginPwd.loginEndImage.visibility = View.INVISIBLE
+            }
+        }
+        loginUser.loginStartImage.setOnClickListener {
+            actionInterval {
+                loginUser.loginEditText.text = null
+                loginUser.loginStartImage.visibility = View.INVISIBLE
+            }
+        }
+        loginPwd.loginEndImage.setOnTouchListener{ _, event ->
+            actionInterval {
+                if(event?.action == KeyEvent.ACTION_UP) {
+                    if (loginPwd.loginEditText.inputType == AppData.INPUTTEXT_NORMAL) {
+                        loginPwd.loginEditText.inputType = AppData.INPUTTEXT_PASSWORD
+                        loginPwd.loginEndImage.setImageResource(R.drawable.eye_slash)
+                    } else {
+                        loginPwd.loginEditText.inputType = AppData.INPUTTEXT_NORMAL
+                        loginPwd.loginEndImage.setImageResource(R.drawable.eye)
+                    }
+                    loginPwd.loginEditText.setSelection(loginPwd.loginEditText.length())
+                }
+            }
+            true
+        }
+        loginRemeberUser.setOnCheckedChangeListener { _, _ ->
+            actionInterval {
+                if (loginRemeberUser.isChecked) {
+                    if (!getBoolean(viewModel.remeberUser)) putBoolean(viewModel.remeberUser, true)
+                } else {
+                    if (getBoolean(viewModel.remeberUser)) putBoolean(viewModel.remeberUser, false)
+                    if (getBoolean(viewModel.remeberPwd)) putBoolean(viewModel.remeberPwd, false)
+                    if (getBoolean(viewModel.remeberLogin)) putBoolean(viewModel.remeberLogin, false)
+                    loginRemeberPwd.isChecked = false
+                    loginAutoRemember.isChecked = false
+                }
+            }
+        }
+        loginRemeberPwd.setOnCheckedChangeListener { _, _ ->
+            actionInterval{
+                if (loginRemeberPwd.isChecked) {
+                    loginRemeberUser.isChecked = true
+                    if (!getBoolean(viewModel.remeberUser)) putBoolean(viewModel.remeberUser, true)
+                    if (!getBoolean(viewModel.remeberPwd)) putBoolean(viewModel.remeberPwd, true)
+                } else {
+                    if (getBoolean(viewModel.remeberPwd)) putBoolean(viewModel.remeberPwd, false)
+                    if (getBoolean(viewModel.remeberLogin)) putBoolean(viewModel.remeberLogin, false)
+                    loginRemeberPwd.isChecked = false
+                    loginAutoRemember.isChecked = false
+                }
+            }
+        }
+        loginAutoRemember.setOnCheckedChangeListener { _, _ ->
+            actionInterval{
+                if (loginAutoRemember.isChecked) {
+                    if (!getBoolean(viewModel.remeberLogin)) putBoolean(viewModel.remeberLogin, true)
+                    if (!getBoolean(viewModel.remeberUser)) putBoolean(viewModel.remeberUser, true)
+                    if (!getBoolean(viewModel.remeberPwd)) putBoolean(viewModel.remeberPwd, true)
+                    loginRemeberUser.isChecked = true
+                    loginRemeberPwd.isChecked = true
+                } else {
+                    if (getBoolean(viewModel.remeberLogin)) putBoolean(viewModel.remeberLogin, false)
+                }
+            }
+        }
+    }
+
+    // [2021/12/30 9:40] 初始化登录界面状态
+    private inline fun initLoadView(block : String.(user: Boolean,pwd : Boolean, autoLogin: Boolean) -> Unit) = loginLayout.apply {
+        val userName = getString(viewModel.userName)
+        val isRemeberUser = getBoolean(viewModel.remeberUser)
+        val isRemeberPwd = getBoolean(viewModel.remeberPwd)
+        val isRemeberLogin = getBoolean(viewModel.remeberLogin)
+        if (viewModel.getSpData(userName, aes, isRemeberUser, isRemeberPwd) && isRemeberLogin) {
+            userName.block(isRemeberUser,isRemeberPwd,isRemeberLogin)
+            if (intent.getBooleanExtra(AppData.EXIT_BY_USER,true)) {
+                login(viewModel.newUserName.value!!,viewModel.newPassWord.value!!)
+                supportActionBar?.hide()
+                window.statusBarColor = Color.TRANSPARENT
+                return@apply
+            }
+        } else { userName.block(isRemeberUser,isRemeberPwd,isRemeberLogin) }
+    }
+
+    // [2021/12/13 14:11] 登录
+    private fun login(user : String = loginLayout.loginUser.loginEditText.text.toString(), pwd : String = loginLayout.loginPwd.loginEditText.text.toString()) {
+        loginLayout.apply {
+            viewModel.setResponseData(this@LoginActivity,NetworkThread(user, pwd, url = AppData.SIGN_IN))
+        }
+    }
+
+    // [2021/12/13 14:13] 设置下拉列表状态
+    private fun setDropDownList() = loginLayout.apply {
+        viewModel.userListData.clear()
+        viewModel.userSplitContent.clear()
+        val popupView = layoutInflater.inflate(R.layout.login_recyclerview, mBinding.root,false) //创建popuView并加载布局
+        val popupWindow = PopupWindow(popupView, longinUserCardView.width, 400) // 将布局添加到popuWindow
+        val loginListPop = popupView.findViewById(R.id.loginRecyclerView) as RecyclerView // 通过popupView找到布局内对应的rv控件
+        val userName = getString(viewModel.userName) // 得到SP存储的userName
+        if (userName.contains(",")) (viewModel.userSplitContent).plusAssign(userName.split(",").toMutableList())
+        else viewModel.userSplitContent.add(userName)
+        val size = viewModel.userSplitContent.size // 获取userSplistContent的大小
+        repeat(size) { viewModel.userListData.add(LoginRecyclerViewAdapter.User(viewModel.userSplitContent[it])) } // userListData添加数据
+        val adapter = LoginRecyclerViewAdapter(viewModel.userListData) // 得到适配器
+        adapter.userInfoBlock = {
+            loginPwd.loginEditText.text = null
+            loginUser.loginEditText.setText(it.userName)
+            loginUser.loginEditText.setSelection(loginUser.loginEditText.length())
+            val pwd = getString("${viewModel.passWord}${it.userName}")
+            if (pwd.isNotBlank()) loginPwd.loginEditText.setText(aes.decrypt(pwd, aes.loadKeyAES(AppData.AES_KEY)))
+            popupWindow.dismiss()
+        }
+        adapter.deletBlock = {
+            AlertDialog.Builder(this@LoginActivity).apply {
+                setTitle("提示")
+                setMessage("你确定删除当前选择的账号吗？")
+                setIcon(R.drawable.tips)
+                setCancelable(true)
+                setPositiveButton("确定") { dialog, _ ->
+                    val userData = getString(viewModel.userName)
+                    removeValue(viewModel.userName)
+                    removeValue("${viewModel.passWord}${it.userName}")
+                    when {
+                        userData.contains(",${it.userName}") -> { putString(viewModel.userName, userData.removeSuffix(",${it.userName}")) }
+                        userData.contains("${it.userName},") -> { putString(viewModel.userName, userData.removePrefix("${it.userName},")) }
+                        else -> loginUser.loginEndImage.visibility = View.GONE
+                    }
+                    popupWindow.dismiss()
+                    dialog.dismiss()
+                }
+                setNegativeButton("取消") { dialog, _ -> dialog.dismiss() }
+                show()
+            }
+        }
+        loginListPop.layoutManager = LinearLayoutManager(this@LoginActivity)
+        loginListPop.adapter = adapter
+        loginListPop.background.alpha = 255
+        popupWindow.isOutsideTouchable = true
+        popupWindow.showAsDropDown(longinUserCardView, 0, 5)
+        popupWindow.setOnDismissListener {
+            viewModel.dropDownListStatus = false
+            loginUser.loginEndImage.setImageResource(R.drawable.drop_downlist)
+        }
+    }
 }

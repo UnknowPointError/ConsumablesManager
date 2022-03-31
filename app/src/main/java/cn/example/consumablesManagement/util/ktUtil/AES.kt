@@ -2,12 +2,14 @@ package cn.example.consumablesManagement.util.ktUtil
 
 import Decoder.BASE64Decoder
 import Decoder.BASE64Encoder
+import kotlinx.coroutines.*
 import java.io.IOException
 import java.lang.Exception
 import javax.crypto.Cipher
 import javax.crypto.KeyGenerator
 import javax.crypto.SecretKey
 import javax.crypto.spec.SecretKeySpec
+import kotlin.concurrent.thread
 
 class AES {
     private val cipher = Cipher.getInstance("AES")
@@ -55,8 +57,13 @@ class AES {
         return cipher.doFinal(source)
     }
 
-    fun encrypt(content: String?, key: SecretKey) =
-        byte2Base64(encryptAES(content?.toByteArray(), key))
+    fun encrypt(content: String?, key: SecretKey) = byte2Base64(encryptAES(content?.toByteArray(), key))
 
     fun decrypt(content: String?, key: SecretKey) = String(decryptAES(base642Byte(content), key))
+}
+
+fun main() {
+    val i = "123,456"
+    val size = i.indexOf("3,4")
+    println(i.removeRange(size,size+3))
 }

@@ -41,7 +41,7 @@
                 android:id="@+id/userExitBtn"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:backgroundTint="@color/homeColor"
+                android:backgroundTint="@color/homeBarColor"
                 android:background="@drawable/ripper_bg"
                 android:contentDescription="@string/icon"
                 android:scaleType="fitXY"

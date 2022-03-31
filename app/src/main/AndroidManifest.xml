@@ -23,6 +23,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ConsumablesManagement"
         android:usesCleartextTraffic="true">
+        <activity
+            android:name=".view.activity.ImageViewActivity"
+            android:exported="false" />
+
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="cn.example.consumablesManagement.view.fragment"
@@ -46,11 +50,12 @@
             android:name=".view.activity.RegisterActivity"
             android:exported="false" />
         <activity
-            android:launchMode="standard"
             android:name=".view.activity.LoginActivity"
-            android:exported="true">
+            android:exported="true"
+            android:launchMode="standard">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

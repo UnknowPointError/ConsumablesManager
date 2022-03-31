@@ -9,32 +9,39 @@ import cn.example.consumablesManagement.R
 // [2021/11/29 8:56] 加载样式工具类
 class Loading {
 
-    private var builder: AlertDialog.Builder? = null
-    private var alertDialog: AlertDialog? = null
-    private var alertBuilder: AlertDialog.Builder? = null
-    private var dialog: AlertDialog? = null
+    private var loadingBuilder: AlertDialog.Builder? = null
+    private var customBuilder: AlertDialog.Builder? = null
+    private var loadingDialog: AlertDialog? = null
+    private var customDialog: AlertDialog? = null
 
-    fun reloading(context: Context) {
+    fun loadingDialog(context: Context) {
         val view = LayoutInflater.from(context).inflate(R.layout.dialog, null)
-        builder = AlertDialog.Builder(context, R.style.CustomDialog)
-        builder?.setView(view)
-        alertDialog = builder?.create()
-        alertDialog?.setCancelable(false)
-        alertDialog?.show()
+        loadingBuilder = AlertDialog.Builder(context, R.style.CustomDialog)
+        loadingBuilder?.setView(view)
+        loadingDialog = loadingBuilder?.create()
+        loadingDialog?.setCancelable(false)
+        loadingDialog?.show()
+        loadingBuilder = null
     }
 
-    fun unloading() = alertDialog?.dismiss()
-    fun isloading() = alertDialog?.isShowing
+    fun cancelDialog() {
+        loadingDialog?.dismiss()
+        loadingDialog = null
+    }
 
-    fun reloadUI(view: View, themeId: Int, block: View.() -> Unit) {
-        alertBuilder = AlertDialog.Builder(view.context, themeId)
-        alertBuilder?.setView(view)
-        dialog = alertBuilder?.create()
-        dialog?.show()
+    fun loadingCustomDialog(view: View, themeId: Int, block: View.() -> Unit) {
+        customBuilder = AlertDialog.Builder(view.context, themeId)
+        customBuilder?.setView(view)
+        customDialog = customBuilder?.create()
+        customDialog?.show()
+        customBuilder = null
         view.block()
     }
 
-    fun unloadUI() = dialog?.dismiss()
+    fun cancelCustomDialog() {
+        customDialog?.dismiss()
+        customDialog = null
+    }
 }
 
 

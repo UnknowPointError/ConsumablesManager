@@ -21,8 +21,9 @@
     <string name="user_haocaijieyong">耗材借用记录</string>
     <string name="apply_addCasName">请输入耗材名称</string>
     <string name="apply_addCasCount">请输入耗材数量</string>
+    <string name="apply_addCasUID">请输入耗材所在的柜子编号</string>
     <string name="apply_addCasSubmit">添加耗材</string>
-    <string name="apply_addCasTips">点击空白处自动关闭当前界面</string>
+    <string name="apply_addCasImage">预览图片</string>
     <string name="apply_errorStyly">格式错误！</string>
     <string name="apply_errorCsaNameNull">添加的耗材名称不能为空！</string>
     <string name="apply_errorCsaCountNull">添加的耗材数量不能为空！</string>
@@ -31,6 +32,19 @@
     <string name="apply_nullloading">暂无更多数据!</string>
     <string name="apply_nullCsa">暂时没有库存哟！</string>
     <string name="apply_showCsaCount">库存数量: </string>
+    <string name="apply_showCsaUID">柜子序号: </string>
+    <string name="apply_showAddTime">添加时间</string>
     <string name="apply_removeCsa">删除耗材</string>
     <string name="apply_submitCsa">提交申请</string>
+    <string name="search_removeApply">删除申请</string>
+    <string name="search_acceptApply">同意申请</string>
+    <string name="search_refuseApply">拒绝申请</string>
+    <string name="search_csaCount">申请数量: </string>
+    <string name="search_applyUserName">申请人: </string>
+    <string name="search_timeShow">申请时间: </string>
+    <string name="consumeApplyOK">申请通过时间: </string>
+    <string name="consumeReturn">归还耗材</string>
+    <string name="nothing">什么都没有呢-_-</string>
+    <string name="search">输入耗材相关信息进行查询</string>
+    <string name="userIcon">用户信息</string>
 </resources>

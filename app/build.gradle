@@ -13,6 +13,7 @@ MobSDK {
 android {
     compileSdk 31
     buildFeatures {
+        dataBinding true
         viewBinding true
     }
     defaultConfig {
@@ -42,10 +43,13 @@ android {
 }
 
 dependencies {
+    implementation 'com.gitee.zackratos:UltimateBarX:0.8.0'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.4.0'
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1'
-
+    implementation 'com.github.bumptech.glide:glide:4.12.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.12.0'
+    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.7'
     // x.x.x代表上方表格中对应模块最新版本
     implementation 'androidx.fragment:fragment-ktx:1.4.0'
     implementation 'com.google.code.gson:gson:2.8.9'

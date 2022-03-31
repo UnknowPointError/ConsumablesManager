@@ -15,28 +15,34 @@ import java.util.concurrent.Callable
  * @Author: BarryAllen
  * TODO: 发送网络请求的异步的线程类
  **************************/
+// @formatter:off
 class NetworkThread(
     private val userName: String = "",
     private val passWord: String = "",
     private val uid: String = "",
+    private val csaUserName: String = "",
     private val csaName: String = "",
     private val csaCount: String = "",
     private val rowMinLimit : String = "",
+    private val time: String = "",
     private val url: String
 ) : Callable<String> {
-
+1
     override fun call(): String {
         var result: String = ""
         TryCatchUtil.tryCatch({
             val connection = URL(url).openConnection() as HttpURLConnection
-            // @formatter:off
-            val data = "username=${URLEncoder.encode(userName, StandardCharsets.UTF_8.toString())
-            }&password=${URLEncoder.encode(passWord, StandardCharsets.UTF_8.toString())
-            }&uid=${URLEncoder.encode(uid, StandardCharsets.UTF_8.toString())
-            }&csaName=${URLEncoder.encode(csaName, StandardCharsets.UTF_8.toString())
-            }&csaCount=${URLEncoder.encode(csaCount, StandardCharsets.UTF_8.toString())
-            }&rowMinLimit=${URLEncoder.encode(rowMinLimit,StandardCharsets.UTF_8.toString())}"
-            // @formatter:on
+            val utf8 = StandardCharsets.UTF_8.toString()
+            val data = "username=${URLEncoder.encode(userName, utf8)
+            }&password=${URLEncoder.encode(passWord, utf8)
+            }&uid=${URLEncoder.encode(uid, utf8)
+            }&csaUserName=${URLEncoder.encode(csaUserName,utf8)
+            }&csaName=${URLEncoder.encode(csaName, utf8)
+            }&csaCount=${URLEncoder.encode(csaCount, utf8)
+            }&rowMinLimit=${URLEncoder.encode(rowMinLimit,utf8)
+            }&time=${URLEncoder.encode(time,utf8)}"
+            connection.connectTimeout = 8000
+            connection.readTimeout = 8000
             connection.requestMethod = "POST"
             connection.doInput = true
             connection.doOutput = true

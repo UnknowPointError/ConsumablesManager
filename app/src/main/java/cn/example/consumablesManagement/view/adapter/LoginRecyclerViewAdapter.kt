@@ -16,32 +16,28 @@ import cn.example.consumablesManagement.databinding.LoginRecyclerviewItemBinding
 class LoginRecyclerViewAdapter(private val userList: ArrayList<User>) :
     RecyclerView.Adapter<LoginRecyclerViewAdapter.ViewHolder>() {
 
-    var nameBlock: (user: User) -> Unit = {}
-    var cancleBlock: (user: User) -> Unit = {}
-
     data class User(val userName: String, val userCancel: Int = R.drawable.trash)
 
-    class ViewHolder(mBinding: LoginRecyclerviewItemBinding) :
-        RecyclerView.ViewHolder(mBinding.root) {
+    class ViewHolder(mBinding: LoginRecyclerviewItemBinding) : RecyclerView.ViewHolder(mBinding.root) {
         val userName = mBinding.loginTextItem
         val userCancel = mBinding.loginImageItem
         val view = mBinding.root
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val mBinding =
-            LoginRecyclerviewItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return ViewHolder(mBinding)
-    }
+    var userInfoBlock: (user: User) -> Unit = {}
+    var deletBlock: (user: User) -> Unit = {}
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val user = userList[position]
         holder.userName.text = user.userName
-        holder.userName.setOnClickListener { nameBlock(user) }
-        holder.userCancel.setOnClickListener { cancleBlock(user) }
+        holder.userName.setOnClickListener { userInfoBlock(user) }
+        holder.userCancel.setOnClickListener { deletBlock(user) }
     }
 
     override fun getItemCount(): Int = userList.size
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
+        ViewHolder(LoginRecyclerviewItemBinding.inflate(LayoutInflater.from(parent.context), parent, false))
 
 }
 

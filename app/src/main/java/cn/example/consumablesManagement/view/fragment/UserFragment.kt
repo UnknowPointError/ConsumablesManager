@@ -9,18 +9,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import cn.example.consumablesManagement.databinding.FragmentUserBinding
+import cn.example.consumablesManagement.util.AppData
 import cn.example.consumablesManagement.util.appUtil.SPUtil.getString
 import cn.example.consumablesManagement.view.activity.LoginActivity
-import cn.example.consumablesManagement.view.fragment.viewModel.UserViewModel
 import com.google.android.material.appbar.AppBarLayout
 
-class UserFragment(var asd: Any? = null) : Fragment() {
+class UserFragment() : Fragment() {
 
     companion object {
         fun newInstance() = UserFragment()
     }
 
-    private lateinit var viewModel: UserViewModel
     private lateinit var mBinding: FragmentUserBinding
 
     override fun onCreateView(
@@ -33,7 +32,6 @@ class UserFragment(var asd: Any? = null) : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel = ViewModelProvider(this).get(UserViewModel::class.java)
         mBinding.apply {
             userTextView.text = getString("LastLoginUser")
             userTextView.typeface = Typeface.createFromAsset(activity?.assets, "fonts/HarmonyOS-Font.ttf")
@@ -43,10 +41,10 @@ class UserFragment(var asd: Any? = null) : Fragment() {
             }
             userAppBarLayout.addOnOffsetChangedListener(listener)
             userExitBtn.setOnClickListener {
-                activity?.finish()
                 val intent = Intent(context, LoginActivity::class.java)
-                intent.putExtra("ExitByUser", false)
+                intent.putExtra(AppData.EXIT_BY_USER, false)
                 startActivity(intent)
+                activity?.finish()
             }
         }
     }
