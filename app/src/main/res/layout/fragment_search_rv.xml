@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="190dp"
+    android:layout_margin="5dp"
+    app:cardCornerRadius="10dp"
+    app:cardElevation="30dp">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <Button
+            android:id="@+id/searchRemoveApply"
+            style="?attr/materialButtonOutlinedStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_margin="5dp"
+            android:text="@string/search_removeApply" />
+
+        <Button
+            android:id="@+id/searchRefuseApply"
+            style="?attr/materialButtonOutlinedStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|center_vertical"
+            android:layout_margin="5dp"
+            android:text="@string/search_refuseApply" />
+
+        <Button
+            android:id="@+id/searchAcceptApply"
+            style="?attr/materialButtonOutlinedStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|bottom"
+            android:layout_margin="5dp"
+            android:text="@string/search_acceptApply" />
+
+        <TextView
+            android:id="@+id/searchCsaName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/searchCsaUID"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="75dp"
+            android:layout_marginTop="70dp"
+            android:textSize="14sp" />
+
+
+        <TextView
+            android:id="@+id/searchApplyUser"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_marginStart="75dp"
+            android:layout_marginBottom="70dp"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/searchCsaCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_marginStart="75dp"
+            android:layout_marginBottom="40dp"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/searchApplyTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_marginStart="75dp"
+            android:layout_marginBottom="10dp"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/searchShowCsaUID"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="70dp"
+            android:text="@string/apply_showCsaUID" />
+
+        <TextView
+            android:id="@+id/searchApplyShowUser"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_marginStart="10dp"
+            android:layout_marginBottom="70dp"
+            android:text="@string/search_applyUserName"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/searchCsaShowCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_marginStart="10dp"
+            android:layout_marginBottom="40dp"
+            android:text="@string/search_csaCount"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/searchShowTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_margin="10dp"
+            android:text="@string/search_timeShow"
+            android:textSize="14sp" />
+
+    </FrameLayout>
+
+</com.google.android.material.card.MaterialCardView>

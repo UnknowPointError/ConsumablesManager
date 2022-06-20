@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/consumeCardView"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="5dp"
+    app:cardCornerRadius="10dp"
+    app:cardElevation="10dp">
+
+    <androidx.constraintlayout.motion.widget.MotionLayout
+        android:id="@+id/consume_motion_layout"
+        android:layout_width="397dp"
+        android:layout_height="wrap_content"
+        app:layoutDescription="@xml/fragment_consume_rv_scene">
+
+        <TextView
+            android:id="@+id/consumeCsaName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            app:layout_constraintStart_toStartOf="parent"
+            android:text="@string/nothing"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/consumeShowCsaCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:text="@string/apply_showCsaCount"
+            android:textSize="12sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/consumeCsaName"
+            tools:layout_editor_absoluteY="37dp" />
+
+        <TextView
+            android:id="@+id/consumeCsaCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:textSize="15sp"
+            app:layout_constraintBottom_toBottomOf="@+id/consumeShowCsaCount"
+            app:layout_constraintStart_toEndOf="@+id/consumeShowCsaCount"
+            app:layout_constraintTop_toTopOf="@+id/consumeShowCsaCount" />
+
+        <ImageButton
+            android:id="@+id/consumeShowMore"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ripper_bg"
+            android:contentDescription="@string/icon"
+            android:scaleType="fitXY"
+            android:src="@drawable/drop_downlist" />
+
+        <TextView
+            android:id="@+id/consumeShowTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/consumeApplyOK" />
+
+        <TextView
+            android:id="@+id/consumeTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/consumeShowCsaUID"
+            android:layout_width="wrap_content"
+            android:text="@string/apply_showCsaUID"
+            android:textSize="12sp"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/consumeCsaUID"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </androidx.constraintlayout.motion.widget.MotionLayout>
+
+</androidx.cardview.widget.CardView>

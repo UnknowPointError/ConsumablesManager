@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.appbar.AppBarLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/applyAppbarLayout"
+    android:layout_width="match_parent"
+    android:layout_height="?attr/actionBarSize"
+    android:background="@color/homeBarColor"
+    app:layout_scrollFlags="snap|enterAlways|scroll">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageButton
+            android:id="@+id/homeShowUser"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_margin="2.5dp"
+            android:background="@drawable/ripper_bg"
+            android:backgroundTint="@color/homeBarColor"
+            android:contentDescription="@string/icon"
+            android:padding="0dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/usermsg" />
+
+        <EditText
+            android:id="@+id/homeSearchEdit"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:background="@drawable/search_bg"
+            android:hint="@string/search" />
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@drawable/gotosearch"
+            android:contentDescription="@string/icon" />
+
+
+    </LinearLayout>
+
+</com.google.android.material.appbar.AppBarLayout>
